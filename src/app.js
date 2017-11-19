@@ -1,3 +1,10 @@
 import React from 'react'
+import Wrapper from 'components/wrapper'
+import SetTime from 'components/set-time'
+// import Countdown from 'components/countdown'
 
-export default () => <div>Hello world</div>
+export default () => (
+  <Wrapper>
+    <SetTime />
+  </Wrapper>
+)

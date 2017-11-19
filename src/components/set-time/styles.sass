@@ -1,0 +1,35 @@
+@import 'helpers/_globals.sass'
+
+.container
+  flex: 0 0 100%
+  display: flex
+  flex-direction: column
+  align-items: center
+  justifty-content: center
+
+.input-container
+  display: flex
+  flex-direction: column
+  margin: 24px 0 0
+
+.title
+  font-size: 14px
+  font-family: $interface
+  color: $white
+
+.button
+  border: none
+  color: $light-red
+  background: $white
+  height: 48px
+  width: 48px
+  border-radius: 50%
+  margin: 64px 0
+  cursor: pointer
+  transition: box-shadow 0.3s ease
+  &:hover
+    box-shadow: 0 5px 3px rgba(0,0,0,0.3)
+
+.start
+  font-size: 32px
+  line-height: 48px

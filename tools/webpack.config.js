@@ -1,4 +1,3 @@
-const HTMLPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
 const path = require('path')
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
@@ -85,6 +84,65 @@ let getDevServer = () => {
   return devServer
 }
 
+let getCSSLoader = () => {
+  let cssLoader = {
+    test:/\.(scss|sass)$/,
+    use: [
+      {
+        loader: 'style-loader',
+      },
+      {
+        loader: 'css-loader',
+        options: {
+          importLoaders: 2,
+          modules: true,
+          localIdentName: '[path][name]__[local]--[hash:base64:5]',
+        },
+      },
+      'postcss-loader',
+      {
+        loader: 'sass-loader',
+        options: {
+          includePaths: [path.resolve(__dirname, '..', 'src')],
+          outputStyle: 'expanded',
+        },
+      },
+    ],
+  }
+  switch (IS_DEVELOPMENT) {
+    case false:
+      return {
+        test:/\.(scss|sass)$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                sourceMap: true,
+                importLoaders: 2,
+                modules: true,
+                localIdentName: '[path][name]__[local]--[hash:base64:5]',
+              },
+            },
+            'postcss-loader',
+              {
+                loader: 'sass-loader',
+                options: {
+                  includePaths: [path.resolve(__dirname, '..', 'src'),],
+                  outputStyle: 'expanded',
+                  sourceMap: true,
+                },
+              },
+            ]
+        })
+      }
+    case true:
+    default:
+      return cssLoader
+  }
+}
+
 const config = {
   entry: getEntry(),
   devtool: IS_DEVELOPMENT
@@ -123,6 +181,15 @@ const config = {
         exclude: /node_modules/,
       },
       {
+        test: /\.css$/,
+        use: IS_DEVELOPMENT
+          ? ['css-loader']
+          : ExtractTextWebpackPlugin.extract({
+              fallback: 'style-loader',
+              use: 'css-loader'
+        })
+      },
+      {
         test: /\.jsx?$/,
         include: path.join(__dirname, '..', 'src'),
         use: [
@@ -136,33 +203,7 @@ const config = {
           },
         ],
       },
-      {
-        test:/\.(scss|sass)$/,
-        use: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
-        use: [
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-              importLoaders: 2,
-              modules: true,
-              localIdentName: '[path][name]__[local]--[hash:base64:5]',
-            },
-          },
-          'postcss-loader',
-            {
-              loader: 'sass-loader',
-              options: {
-                includePaths: [path.resolve(__dirname, '..', 'src'),],
-                outputStyle: 'expanded',
-                sourceMap: true,
-              },
-            },
-          ]
-          // ^ takes styles from css import statements
-         })
-       }
+      getCSSLoader(),
     ]
   },
   plugins: getPlugins(),

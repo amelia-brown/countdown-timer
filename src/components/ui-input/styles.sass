@@ -1,0 +1,41 @@
+@import 'helpers/_globals.sass'
+
+.input
+  height: 40px
+  padding: 4px
+  font-size: 24px
+  background: rgba(255,255,255,0.2)
+  border: none
+  outline: none
+  line-height: 48px
+  border-radius: 4px
+  color: $white
+  font-family: $share-tech
+  &::placeholder
+    color: rgba(255,255,255,0.7)
+  &::focus
+    &::placeholder
+      color: $white
+    &::-webkit-input-placeholder
+      color: $white
+    &::-moz-placeholder
+      color: $white
+    &:-ms-input-placeholder
+      color: $white
+    &:-moz-placeholder
+      color: $white
+
+
+
+//::-webkit-input-placeholder
+  //color: rgba(255,255,255,0.7)
+
+//::-moz-placeholder
+  //color: rgba(255,255,255,0.7)
+
+//:-ms-input-placeholder
+  //color: rgba(255,255,255,0.7)
+
+//:-moz-placeholder
+  //color: rgba(255,255,255,0.7)
+

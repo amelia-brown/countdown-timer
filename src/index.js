@@ -3,6 +3,8 @@ import {render} from 'react-dom'
 import {AppContainer} from 'react-hot-loader'
 import Mount from 'helpers/mount'
 
+import 'normalize.css'
+
 let renderComponent = Component => render(
   <AppContainer>
     <Component />
