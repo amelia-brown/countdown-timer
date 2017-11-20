@@ -1,36 +1,35 @@
+// actions
 const SET_TIME = 'timefield/SET_TIME'
-const VALIDATE = 'timefield/VALIDATE'
+const CLEAR_TIME = 'timefield/CLEAR_TIME'
+
+// action creators
+export const clearTime = () => ({
+  type: CLEAR_TIME
+})
 
 export const setTime = (options) => ({
   type: SET_TIME,
   payload: options
 })
 
-export const validate = () => ({
-  type: VALIDATE
-})
+// initial state
+const INITIAL_STATE = {
+  startTime: {},
+  endTime: {}
+}
 
-export default (state, action) => {
+// reducer
+export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case SET_TIME:
-      return
-    case VALIDATE:
+      return action.payload
+    case CLEAR_TIME:
+      return INITIAL_STATE
     default:
       return state
   }
 }
 
-// shape = {
-//    startTime: {
-//      parts: {
-//        hr / min / sec
-//      }
-//      isValid: bool
-//    }
-//    endTime: {
-//      parts: {
-//        hr / min / sec
-//      }
-//      isValid: bool
-//    }
-// }
+// selectors
+export const getStartTime = state => state.startTime
+export const getEndTime = state => state.endTime

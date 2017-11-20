@@ -1,40 +1,54 @@
 import React, {Component} from 'react'
 import styles from './styles.sass'
 
-// TODO still some bugs around backspace button/editing values
-// should do something more like splitting every 2 characters
-// and adding a colon
-
 export default class Input extends Component {
-  handleChange (e) {
-    let val = e.target.value
+  state = {
+    value: ''
+  }
 
-    // remove non-number or colon values
-    e.target.value = val.replace(/[^0-9:]/g, '')
-
-    // add a colon after every second number
-    let userEntry = val
-      .slice()
-      .split('')
-      .filter(char => char !== ':')
-
-    if (
-      userEntry.length > 0 &&
-      userEntry.length % 2 === 0 &&
-      userEntry.length < 6
-    ) {
-      e.target.value = val += ':'
+  handleKeyDown (e) {
+    let value
+    let character = e.key.replace(/[^0-9]/g, '')
+    if (e.key === 'Backspace') {
+      if (window.getSelection().toString()) {
+        let match = window.getSelection().toString().replace(/:/g, '')
+        value = this.state.value.replace(match, '')
+      } else {
+        value = this.state.value.slice(0, -1)
+      }
+    } else {
+      if (this.state.value.length === 6) return
+      value = this.state.value + character
     }
+
+    this.setState({
+      value
+    })
   }
 
   render () {
+    // add colon after every second digit
+    // if (this.state.value.length >= 2) add colon at value[2]
+    // if (this.state.value.length >=4) add colon at value[4]
+    let value = this.state.value
+      .split('')
+      .map((char, i) => {
+        let newChar
+        if (i % 2 !== 0 && 1 !== 0 && i < 5) {
+          newChar = char + ':'
+          return newChar
+        }
+        return char
+      })
+      .join('')
     return (
       <input
         type='text'
-        maxLength={8}
+        maxLength='8'
+        value={value}
         className={styles.input}
-        onChange={::this.handleChange}
-        placeholder='00:00:00' />
+        onKeyDown={::this.handleKeyDown}
+        placeholder='HH:MM:SS' />
     )
   }
 }

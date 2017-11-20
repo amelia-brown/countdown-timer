@@ -2,10 +2,12 @@
 
 .container
   flex: 0 0 100%
+  height: 50vh
   display: flex
   flex-direction: column
   align-items: center
-  justifty-content: center
+  justify-content: center
+  position: relative
 
 .input-container
   display: flex
@@ -14,8 +16,9 @@
 
 .title
   font-size: 14px
+  margin: 4px 0
   font-family: $interface
-  color: $white
+  color: $black
 
 .button
   border: none
@@ -24,12 +27,14 @@
   height: 48px
   width: 48px
   border-radius: 50%
-  margin: 64px 0
+  position: absolute
+  bottom: -24px
   cursor: pointer
-  transition: box-shadow 0.3s ease
+  border: 2px solid $light-red
+  transition: box-shadow 0.2s ease
   &:hover
-    box-shadow: 0 5px 3px rgba(0,0,0,0.3)
+    box-shadow: 0 0 0 2px $light-red
 
 .start
   font-size: 32px
-  line-height: 48px
+  line-height: 44px
