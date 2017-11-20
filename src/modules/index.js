@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux'
-import timer from './timer'
+import countdown from './countdown'
 
 export default combineReducers({
-  timer
+  countdown
 })

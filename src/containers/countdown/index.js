@@ -3,24 +3,43 @@ import {connect} from 'react-redux'
 import {createSelector} from 'reselect'
 import * as countdown from 'modules/countdown'
 import isEqual from 'lodash.isequal'
+import CountdownComponent from 'components/countdown'
 
 class CountdownContainer extends Component {
   state = {
-    time: {}
+    minutes: 0,
+    hours: 0,
+    seconds: 0
+  }
+
+  constructor (props) {
+    super(props)
+
+    this.stepDown = ::this.stepDown
   }
 
   componentWillMount () {
     this.setState({
-      countdown: this.props.countdown
+      ...this.props.countdown
     })
-    this.startCountdown()
   }
 
-  startCountdown = window.setInterval(this.stepDown, 1000)
+  componentWillReceiveProps (nextProps) {
+    if (!isEqual(this.props.countdown, nextProps.countdown)) {
+      this.setState({
+        ...nextProps.countdown,
+        displayMessage: false
+      })
+    }
+    window.clearInterval(this.startCountdown)
+    this.startCountdown = window.setInterval(this.stepDown, 1000)
+  }
 
   finishCountdown () {
-    window.clearInterval(startCountdown)
-    console.log('Countdown over')
+    window.clearInterval(this.startCountdown)
+    this.setState({
+      displayMessage: true
+    })
   }
 
   stepDown () {
@@ -28,7 +47,6 @@ class CountdownContainer extends Component {
     let seconds = this.state.seconds
     let minutes = this.state.minutes
     let hours = this.state.hours
-
     if (
       minutes === 0 &&
       seconds === 0 &&
@@ -38,19 +56,19 @@ class CountdownContainer extends Component {
     if (seconds === 0) {
       seconds = 59
       minutes = minutes - 1
+      if (minutes <= 0) {
+        minutes = 59
+        hours = hours - 1
+      } else {
+        minutes = minutes - 1
+      }
+      if (hours <= 0) {
+        hours = 0
+      } else {
+        hours = hours - 1
+      }
     } else {
       seconds = seconds - 1
-    }
-    if (minutes <= 0) {
-      minutes = 59
-      hours = hours - 1
-    } else {
-      minutes = minutes - 1
-    }
-    if (hours <=0) {
-      hours = 0
-    } else {
-      hours = hours - 1
     }
     return this.setState({
       hours,
@@ -59,18 +77,17 @@ class CountdownContainer extends Component {
     })
   }
 
-  componentWillReceiveProps (nextProps) {
-    if (!isEqual(this.props.countdown, nextProps.countdown)) {
-      this.setState({
-        countdown: nextProps.countdown
-      })
-    }
-  }
-
   render () {
+    let countdown = {
+      hours: this.state.hours,
+      minutes: this.state.minutes,
+      seconds: this.state.seconds
+    }
+
     return (
       <CountdownComponent
-        time={this.props.countdown} />
+        displayMessage={this.state.displayMessage}
+        countdown={countdown} />
     )
   }
 }

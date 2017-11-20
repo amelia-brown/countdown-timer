@@ -4,6 +4,31 @@
   flex: 0 0 100%
   height: 50vh
   background: $gradient
+  padding: 0 16px
   display: flex
   align-items: center
   justify-content: center
+
+.message
+  opacity: 0
+  position: absolute
+  text-align: center
+  bottom: 48px
+  font-family: $share-tech
+  color: $white
+  font-size: 24px
+
+.fadein
+  animation: fadein 1s
+  animation-fill-mode: forwards
+
+.fadeout
+  animation: fadeout 1s
+  animation-fill-mode: forwards
+
+
+@keyframes fadein
+  0%
+    opacity: 0
+  100%
+    opacity: 1

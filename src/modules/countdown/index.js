@@ -14,11 +14,9 @@ export const setCountdown = (options) => ({
 
 // initial state
 const INITIAL_STATE = {
-  countdown: {
-    hours: 00,
-    minutes: 00,
-    seconds: 00
-  }
+  hours: 0,
+  minutes: 0,
+  seconds: 0
 }
 
 // reducer
@@ -34,4 +32,4 @@ export default (state = INITIAL_STATE, action) => {
 }
 
 // selectors
-export const getCountdown = state => state.countown
+export const getCountdown = state => state.countdown

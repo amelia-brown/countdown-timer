@@ -1,6 +1,6 @@
 const webpack = require('webpack')
 const path = require('path')
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var ExtractTextWebpackPlugin = require("extract-text-webpack-plugin");
 
 const IS_DEVELOPMENT = process.env.NODE_ENV !== 'production'
 
@@ -45,7 +45,7 @@ const getPlugins = () => {
     case false:
     default:
       plugins = plugins.concat([
-        new ExtractTextPlugin('bundle.css'),
+        new ExtractTextWebpackPlugin('bundle.css'),
         new webpack.optimize.UglifyJsPlugin({
           compress: {warnings: false},
           output: {comments: false},
@@ -113,7 +113,7 @@ let getCSSLoader = () => {
     case false:
       return {
         test:/\.(scss|sass)$/,
-        use: ExtractTextPlugin.extract({
+        use: ExtractTextWebpackPlugin.extract({
           fallback: 'style-loader',
           use: [
             {

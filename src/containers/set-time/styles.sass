@@ -3,6 +3,7 @@
 .container
   flex: 0 0 100%
   height: 50vh
+  padding: 0 16px
   display: flex
   flex-direction: column
   align-items: center
@@ -12,7 +13,7 @@
 .input-container
   display: flex
   flex-direction: column
-  margin: 24px 0 0
+  margin: 32px 0 0
 
 .title
   font-size: 14px
@@ -34,7 +35,10 @@
   transition: box-shadow 0.2s ease
   &:hover
     box-shadow: 0 0 0 2px $light-red
+  &:focus
+    outline: 0
 
 .start
   font-size: 32px
   line-height: 44px
+

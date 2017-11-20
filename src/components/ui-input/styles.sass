@@ -1,8 +1,13 @@
 @import 'helpers/_globals.sass'
 
+.container
+  position: relative
+  height: 52px
+
 .input
   height: 52px
   padding: 8px
+  width: 280px
   font-size: 32px
   background: $light-gray
   border: none
@@ -24,17 +29,9 @@
     &:-moz-placeholder
       color: $black
 
-
-
-//::-webkit-input-placeholder
-  //color: rgba(255,255,255,0.7)
-
-//::-moz-placeholder
-  //color: rgba(255,255,255,0.7)
-
-//:-ms-input-placeholder
-  //color: rgba(255,255,255,0.7)
-
-//:-moz-placeholder
-  //color: rgba(255,255,255,0.7)
-
+.error
+  color: $dark-red
+  font-family: $interface
+  font-size: 12px
+  margin: 4px 0
+  position: absolute
