@@ -25,14 +25,15 @@ and wrapper componene
 
 ## Run build
 
-  `npm install && npm build`
-  `open index.html`
+`npm install && npm run build`
 
 ## Run dev
 
-  `npm install && npm run start` < runs in webpack dev server at
-  `localhost:3000`
+runs in webpack dev server at 1localhost:3000`
+`npm install && npm run start`
 
 ### Notes
-  Time inputs use 24 hour clock
-  No tests written, although Jest and Enzyme are set up and configured
+
+Time inputs use 24 hour clock
+
+No tests, although Jest and Enzyme are set up

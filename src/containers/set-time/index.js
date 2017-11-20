@@ -7,7 +7,7 @@ import styles from './styles.sass'
 const ERRORS = {
   START_EXISTS: 'Please enter a start time',
   END_EXISTS: 'Please enter an end time',
-  START_END: 'Please choose an end time that\'s after the end time!',
+  START_END: 'End time must be before start time',
   HOURS: 'There are only 24 hours in a day!',
   MINUTES: 'There are only 60 minutes in an hour!',
   SECONDS: 'There are only 60 seconds in a minute!'
@@ -115,7 +115,9 @@ class SetTimeContainer extends Component {
 
   handleSetTimer () {
     let start = this.state.startTime.split(':')
+      .map(n => parseInt(n))
     let end = this.state.endTime.split(':')
+      .map(n => parseInt(n))
     let hours = end[0] - start[0]
     let seconds = end[2] - start[2]
     let minutes = end[1] - start[1]
